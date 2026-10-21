@@ -77,6 +77,7 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(express.json({ limit: '1mb' }));
 
+const NODE_ENV = process.env.NODE_ENV || 'production';
 const allowedOriginsEnv = process.env.ALLOWED_ORIGINS;
 if (!allowedOriginsEnv || !allowedOriginsEnv.trim()) {
   console.error('FATAL: ALLOWED_ORIGINS environment variable is required (comma-separated, no localhost fallback)');
@@ -137,7 +138,6 @@ const globalRateLimiter = rateLimit({
 app.use(globalRateLimiter);
 
 const PORT = process.env.PORT || 8010;
-const NODE_ENV = process.env.NODE_ENV || 'production';
 const JWT_SECRET = process.env.JWT_SECRET;
 const ADMIN_DEFAULT_PASSWORD = process.env.ADMIN_DEFAULT_PASSWORD;
 const ACCESS_EXPIRY = '15m';
